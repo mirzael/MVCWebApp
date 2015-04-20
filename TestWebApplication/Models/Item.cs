@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using OrderWebApplication.Repository;
+using System.Runtime.Serialization;
 
 namespace OrderWebApplication.Models
 {
@@ -35,6 +36,7 @@ namespace OrderWebApplication.Models
         /// <value>
         /// The orders that reference this item.
         /// </value>
+        [IgnoreDataMember]
         public virtual List<Order> Orders { get; set; }
     }
 }

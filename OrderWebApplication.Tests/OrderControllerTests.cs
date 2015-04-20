@@ -63,20 +63,58 @@ namespace OrderWebApplication.Tests
 
             inMemoryUnitOfWork = new InMemoryUnitOfWork();
 
+            controller = new OrderController(inMemoryUnitOfWork);
+        }
+
+        [SetUp]
+        public void initializeUoW()
+        {
+            var items = inMemoryUnitOfWork.ItemRepository.Get().ToList();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                inMemoryUnitOfWork.ItemRepository.Delete(items[i].ID);
+            }
+
+            var orders = inMemoryUnitOfWork.OrderRepository.Get().ToList();
+
+            for (int i = 0; i < orders.Count; i++)
+            {
+                inMemoryUnitOfWork.OrderRepository.Delete(orders[i].ID);
+            }
+
+
             inMemoryUnitOfWork.ItemRepository.Insert(_mockItemData[0]);
             inMemoryUnitOfWork.ItemRepository.Insert(_mockItemData[1]);
             inMemoryUnitOfWork.OrderRepository.Insert(_mockOrderData[0]);
             inMemoryUnitOfWork.OrderRepository.Insert(_mockOrderData[1]);
-
-            controller = new OrderController(inMemoryUnitOfWork);
         }
 
         [Test]
-        public void Index_HasRightUrl()
+        public void DeleteConfirmed_WithItemId_WillDeleteItem()
         {
-            var result = (PartialViewResult)controller._orderDetails(null, null, null, null, null, null, null);
+            var result = (RedirectToRouteResult)controller.DeleteConfirmed(1);
 
-            result.ViewName.Should().BeEquivalentTo(string.Empty);
+            inMemoryUnitOfWork.OrderRepository.Get().Should().Equal(new List<Order> { _mockOrderData[1] });
+        }
+
+        [Test]
+        public void Create_WillCreateNewItem()
+        {
+            var order = new Order{
+                Address = "124 St",
+                ID = 5,
+                Item = _mockItemData[0],
+                ItemID = _mockItemData[0].ID,
+                OrdererName = "Bo bo bo",
+                Quantity = 10,
+                ShippingType = ShippingType.Express,
+                TimeOrdered = DateTime.Now
+            };
+
+            var result = (RedirectToRouteResult)controller.Create(order);
+
+            inMemoryUnitOfWork.OrderRepository.GetById(order.ID).Should().Be(order);
         }
 
         [Test]
@@ -150,14 +188,5 @@ namespace OrderWebApplication.Tests
             order.Should().Be(_mockOrderData[0]);
         }
 
-        [Test]
-        public void DeleteConfirmed_WithItemId_WillDeleteItem()
-        {
-            var result = (RedirectToRouteResult)controller.DeleteConfirmed(1);
-
-            inMemoryUnitOfWork.OrderRepository.Get().Should().Equal(new List<Order> { _mockOrderData[1] });            
-            
-            inMemoryUnitOfWork.OrderRepository.Insert(_mockOrderData[0]);
-        }
     }
 }

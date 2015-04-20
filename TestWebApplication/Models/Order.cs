@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 using OrderWebApplication.Repository;
 
 
@@ -74,6 +75,7 @@ namespace OrderWebApplication.Models
         /// <value>
         /// The item.
         /// </value>
+        [IgnoreDataMember]
         public Item Item { get; set; }
     }
 }

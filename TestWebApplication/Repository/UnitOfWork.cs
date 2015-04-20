@@ -9,9 +9,11 @@ namespace OrderWebApplication.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private OrderDBContext context = new OrderDBContext();
-        private GenericRepository<Order> orderRepository;
-        private GenericRepository<Item> itemRepository;
+        private IRepository<Order> orderRepository;
+        private IRepository<Item> itemRepository;
         private bool disposed = false;
+
+        public UnitOfWork() { }
 
         /// <summary>
         /// Gets the order repository.
