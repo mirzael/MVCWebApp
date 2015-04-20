@@ -1,0 +1,32 @@
+﻿@model IEnumerable<OrderWebApplication.Models.ViewModels.RevenueDay>
+@{
+    ViewBag.Title = "ShowRevenue";
+}
+
+<h2>ShowRevenue</h2>
+
+<div>
+    <h4>Revenue</h4>
+    <table class="table">
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Revenue
+            </th>
+        </tr>
+
+      @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalRevenue)
+            </td>
+        </tr>
+      }
+    </table>
+</div>
+

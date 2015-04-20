@@ -1,0 +1,99 @@
+@using PagedList.Mvc;
+@model PagedList.IPagedList<OrderWebApplication.Models.Order>
+
+@using (Ajax.BeginForm("_OrderDetails", "Order", new AjaxOptions { UpdateTargetId = "OrdersTable", HttpMethod = "Get" }))
+{
+    <div class="row">
+        <div class="col-md-4">
+            Orderer Name: @Html.TextBox("OrdererName", ViewBag.CurrentOrdererFilter as string)
+        </div>
+        <div class="col-md-3">
+            Item: @Html.DropDownList("ItemID", ViewBag.ItemID as SelectList, string.IsNullOrEmpty(ViewBag.CurrentItemIdFilter as string) ? "All" : ViewBag.CurrentItemIdFilter as string)
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Filter" />
+        </div>
+    </div>
+
+}
+
+<table class="table" id="OrdersTable">
+    <tr>
+        <th>
+            Item Name
+        </th>
+        <th>
+            @Ajax.ActionLink("Time Ordered", "_OrderDetails", new { 
+                    sortOrder = ViewBag.DateSortParm,
+                    currentOrderer = ViewBag.CurrentOrdererFilter,
+                    currentItemId = ViewBag.CurrentItemIdFilter,
+                    currentSort = ViewBag.CurrentSort
+                    }, 
+                    new AjaxOptions { UpdateTargetId = "OrdersTable", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+        </th>
+        <th>
+            Address
+        </th>
+        <th>
+            @Ajax.ActionLink("Orderer Name", "_OrderDetails", new { 
+                    sortOrder = ViewBag.NameSortParm,
+                    currentOrderer = ViewBag.CurrentOrdererFilter,
+                    currentItemId = ViewBag.CurrentItemIdFilter,
+                    currentSort = ViewBag.CurrentSort
+                    }, new AjaxOptions { UpdateTargetId = "OrdersTable", InsertionMode = InsertionMode.Replace, HttpMethod = "Get" })
+        </th>
+        <th>
+            Quantity
+        </th>
+        <th>
+            Shipping Type
+        </th>
+        <th>
+            Total Cost
+        </th>
+        <th>
+        </th>
+    </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TimeOrdered)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrdererName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ShippingType)
+                </td>
+                <td>
+                    @(item.Quantity * item.Item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>
+            </tr>
+
+        }
+
+        @Html.PagedListPager(Model, page => Url.Action("_OrderDetails", new
+            {
+                page = page,
+                currentOrderer = ViewBag.CurrentOrdererFilter,
+                currentItemId = ViewBag.CurrentItemIdFilter,
+                currentSort = ViewBag.CurrentSort
+            }),
+            PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "OrdersTable" }))
+</table>

@@ -1,0 +1,21 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<OrderWebApplication.Models.Order>
+
+
+<script src="~/Scripts/angular.js"></script>
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Order Index</h2>
+
+<p>
+	@Html.ActionLink("Create New", "Create")
+</p>
+
+<div id="OrdersTable">
+	@Html.Action("_OrderDetails", "Order", new { orders = Model, page = Model.PageNumber })
+</div>
