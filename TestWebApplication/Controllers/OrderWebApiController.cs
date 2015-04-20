@@ -22,8 +22,6 @@ namespace OrderWebApplication.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        public OrderWebApiController() : this(new UnitOfWork()){ }
-
         // GET: api/OrderWebApi
         public IQueryable<Order> GetOrders()
         {

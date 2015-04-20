@@ -12,7 +12,13 @@ namespace OrderWebApplication.Tests
     [TestFixture]
     public class UnitOfWorkTests
     {
-        private UnitOfWork unitOfWork;
+        private UnitOfWork unitOfWork = new UnitOfWork();
+
+        [Test]
+        public void RemoveWarning()
+        {
+            unitOfWork.OrderRepository.Get();
+        }
 
 
     }

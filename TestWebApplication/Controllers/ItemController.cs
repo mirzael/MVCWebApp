@@ -20,8 +20,6 @@ namespace OrderWebApplication.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        public ItemController() : this(new UnitOfWork()){ }
-
         // GET: /Item/        
         /// <summary>
         /// Displays all Items.

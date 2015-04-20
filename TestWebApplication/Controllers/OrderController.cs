@@ -24,8 +24,6 @@ namespace OrderWebApplication.Controllers
             this.unitOfWork = unitOfWork;
         }
 
-        public OrderController() : this(new UnitOfWork()){ }
-
         /// <summary>
         /// The page that shows all of the orders.
         /// </summary>
