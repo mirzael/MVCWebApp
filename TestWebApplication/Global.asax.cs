@@ -1,4 +1,5 @@
 ﻿using OrderWebApplication.IoC;
+using OrderWebApplication.Models;
 using OrderWebApplication.Repository;
 using StructureMap;
 using System;
@@ -10,6 +11,8 @@ using System.Web.Http.Dispatcher;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace OrderWebApplication
 {
@@ -32,9 +35,17 @@ namespace OrderWebApplication
                   .Replace(typeof(IHttpControllerActivator), new ServiceActivator());
             
             //Setting up structure map IOC Container
-            ObjectFactory.Initialize(registry => registry
-                .For<IUnitOfWork>()
-                .Use<UnitOfWork>());
+            ObjectFactory.Initialize(registry => {
+                registry
+                    .For<IUnitOfWork>()
+                    .Use<UnitOfWork>();
+
+                registry
+                    .For<IUserStore<ApplicationUser>>()
+                    .Use<UserStore<ApplicationUser>>()
+                    .SelectConstructor(() => new UserStore<ApplicationUser>(new ApplicationDbContext()));
+            });
+
         }
     }
 }

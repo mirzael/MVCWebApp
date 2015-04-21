@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using StructureMap;
+using OrderWebApplication.Controllers;
 
 namespace OrderWebApplication.IoC
 {
@@ -10,8 +11,16 @@ namespace OrderWebApplication.IoC
     {
         protected override IController GetControllerInstance(System.Web.Routing.RequestContext requestContext, Type controllerType)
         {
-            return ObjectFactory.GetInstance(controllerType) as Controller;
-
+            if (controllerType != typeof(AccountController))
+            {
+                return ObjectFactory.GetInstance(controllerType) as Controller;
+            }
+            else
+            {
+                return base.GetControllerInstance(requestContext, controllerType);
+            }
+            
         }
     }
 }
+
