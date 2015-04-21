@@ -9,6 +9,8 @@ using System.Linq;
 using OrderWebApplication.Controllers;
 using System.Web.Mvc;
 using FluentAssertions;
+using OrderWebApplication.Models.ViewModels;
+using System.Collections;
 
 namespace OrderWebApplication.Tests
 {
@@ -188,5 +190,25 @@ namespace OrderWebApplication.Tests
             order.Should().Be(_mockOrderData[0]);
         }
 
+        [Test]
+        public void Revenue_WillReturnRevenueList()
+        {
+            var expected = new List<RevenueDay>{
+                new RevenueDay(){
+                    Date =  new DateTime(2011,11,11),
+                    TotalRevenue = 21.98M
+                },
+                new RevenueDay(){
+                    Date = new DateTime(2012,12,12),
+                    TotalRevenue = 20.24M
+                }
+            };
+
+            var result = (ViewResult)controller.ShowRevenue();
+
+            var revenue = (IEnumerable<RevenueDay>)result.ViewData.Model;
+
+            revenue.Should().Equal(expected, (d1, d2) => d1.Date == d2.Date && d1.TotalRevenue == d2.TotalRevenue);
+        }
     }
 }

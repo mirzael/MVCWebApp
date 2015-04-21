@@ -39,13 +39,7 @@ namespace OrderWebApplication
                 registry
                     .For<IUnitOfWork>()
                     .Use<UnitOfWork>();
-
-                registry
-                    .For<IUserStore<ApplicationUser>>()
-                    .Use<UserStore<ApplicationUser>>()
-                    .SelectConstructor(() => new UserStore<ApplicationUser>(new ApplicationDbContext()));
             });
-
         }
     }
 }

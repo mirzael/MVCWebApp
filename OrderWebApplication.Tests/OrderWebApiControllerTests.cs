@@ -137,7 +137,7 @@ namespace OrderWebApplication.Tests
         [Test]
         public void PutOrder_EditsProperOrder()
         {
-            var order = _mockOrderData[0];
+            var order = new Order { ID = 1, Address = "New Address" };
             order.Address = "New Address";
 
             controller.PutOrder(1, order);
