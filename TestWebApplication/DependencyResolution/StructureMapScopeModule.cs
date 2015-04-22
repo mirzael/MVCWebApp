@@ -1,10 +1,10 @@
 namespace OrderWebApplication.DependencyResolution {
     using System.Web;
 
-    using OrderWebApplication;
+    using OrderWebApplication.App_Start;
 
     using StructureMap.Web.Pipeline;
-    /*
+
     public class StructureMapScopeModule : IHttpModule {
         #region Public Methods and Operators
 
@@ -12,14 +12,14 @@ namespace OrderWebApplication.DependencyResolution {
         }
 
         public void Init(HttpApplication context) {
-            context.BeginRequest += (sender, e) => StructuremapMvc.StructureMapDependencyScope.CreateNestedContainer();
-            context.EndRequest += (sender, e) => {
+ //           context.BeginRequest += (sender, e) => StructuremapMvc.StructureMapDependencyScope.CreateNestedContainer();
+ /*           context.EndRequest += (sender, e) => {
                 HttpContextLifecycle.DisposeAndClearAll();
-                StructuremapMvc.StructureMapDependencyScope.DisposeNestedContainer();
+                StructuremapMvc.StructureMapDependencyScope.DisposeNestedContainer(); 
             };
+  */
         }
 
         #endregion
     }
-    */
 }

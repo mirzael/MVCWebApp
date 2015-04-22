@@ -16,21 +16,25 @@
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace OrderWebApplication.DependencyResolution {
-    using StructureMap.Configuration.DSL;
-    using StructureMap.Graph;
+	using OrderWebApplication.Repository;
+	using StructureMap.Configuration.DSL;
+	using StructureMap.Graph;
+	using System.Web.Mvc;
 	
-    public class DefaultRegistry : Registry {
-        #region Constructors and Destructors
+	public class DefaultRegistry : Registry {
+		#region Constructors and Destructors
 
-        public DefaultRegistry() {
-            Scan(
-                scan => {
-                    scan.TheCallingAssembly();
-                    scan.WithDefaultConventions();
-                });
-            //For<IExample>().Use<Example>();
-        }
+		public DefaultRegistry() {
+			Scan(
+				scan => {
+					scan.TheCallingAssembly();
+					scan.WithDefaultConventions();
+				});
+			For<IController>().Transient();
+			For<IUnitOfWork>().Use<UnitOfWork>();
+			//For<IExample>().Use<Example>();
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

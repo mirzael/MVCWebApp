@@ -17,11 +17,11 @@
 
 
 namespace OrderWebApplication.DependencyResolution {
-    using StructureMap;
+	using StructureMap;
 	
-    public static class IoC {
-        public static IContainer Initialize() {
-            return new Container(c => c.AddRegistry<DefaultRegistry>());
-        }
-    }
+	public static class IoC {
+		public static IContainer Initialize() {
+			return new Container(c => c.AddRegistry<DefaultRegistry>());
+		}
+	}
 }

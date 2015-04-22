@@ -21,10 +21,10 @@ using OrderWebApplication.DependencyResolution;
 [assembly: WebActivatorEx.PostApplicationStartMethod(typeof(OrderWebApplication.App_Start.StructuremapWebApi), "Start")]
 
 namespace OrderWebApplication.App_Start {
-    public static class StructuremapWebApi {
-        public static void Start() {
+	public static class StructuremapWebApi {
+		public static void Start() {
 			var container = StructuremapMvc.StructureMapDependencyScope.Container;
-            GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
-        }
-    }
+			GlobalConfiguration.Configuration.DependencyResolver = new StructureMapWebApiDependencyResolver(container);
+		}
+	}
 }

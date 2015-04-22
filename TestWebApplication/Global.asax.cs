@@ -1,4 +1,4 @@
-﻿using OrderWebApplication.IoC;
+﻿//using OrderWebApplication.IoC;
 using OrderWebApplication.Models;
 using OrderWebApplication.Repository;
 using StructureMap;
@@ -26,13 +26,6 @@ namespace OrderWebApplication
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            //Setting up MVC config
-            ControllerBuilder.Current.SetControllerFactory(new InjectionControllerFactory());
-
-            //Setting up Web Api Config
-            HttpConfiguration config = GlobalConfiguration.Configuration;
-            config.Services
-                  .Replace(typeof(IHttpControllerActivator), new ServiceActivator());
         }
     }
 }
