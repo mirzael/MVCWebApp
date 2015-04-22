@@ -16,7 +16,7 @@ namespace OrderWebApplication.IoC
         public IHttpController Create(HttpRequestMessage request
             , HttpControllerDescriptor controllerDescriptor, Type controllerType)
         {
-            var controller = ObjectFactory.GetInstance(controllerType) as IHttpController;
+            var controller = DependencyContainer.Container.GetInstance(controllerType) as IHttpController;
             return controller;
         }
     }

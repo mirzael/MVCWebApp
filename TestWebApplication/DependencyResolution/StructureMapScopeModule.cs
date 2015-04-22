@@ -1,10 +1,10 @@
 namespace OrderWebApplication.DependencyResolution {
     using System.Web;
 
-    using OrderWebApplication.App_Start;
+    using OrderWebApplication;
 
     using StructureMap.Web.Pipeline;
-
+    /*
     public class StructureMapScopeModule : IHttpModule {
         #region Public Methods and Operators
 
@@ -21,4 +21,5 @@ namespace OrderWebApplication.DependencyResolution {
 
         #endregion
     }
+    */
 }

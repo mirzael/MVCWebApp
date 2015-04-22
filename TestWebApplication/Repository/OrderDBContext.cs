@@ -9,6 +9,10 @@ namespace OrderWebApplication.Repository
 {
     public class OrderDBContext : DbContext
     {
+        public OrderDBContext()
+        {
+            this.Configuration.ProxyCreationEnabled = false; 
+        }
         /// <summary>
         /// Gets or sets the orders in the DB.
         /// </summary>

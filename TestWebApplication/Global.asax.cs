@@ -33,13 +33,6 @@ namespace OrderWebApplication
             HttpConfiguration config = GlobalConfiguration.Configuration;
             config.Services
                   .Replace(typeof(IHttpControllerActivator), new ServiceActivator());
-            
-            //Setting up structure map IOC Container
-            ObjectFactory.Initialize(registry => {
-                registry
-                    .For<IUnitOfWork>()
-                    .Use<UnitOfWork>();
-            });
         }
     }
 }

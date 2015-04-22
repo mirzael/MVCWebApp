@@ -13,7 +13,7 @@ namespace OrderWebApplication.IoC
         {
             if (controllerType != typeof(AccountController))
             {
-                return ObjectFactory.GetInstance(controllerType) as Controller;
+                return DependencyContainer.Container.GetInstance(controllerType) as Controller;
             }
             else
             {

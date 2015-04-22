@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using OrderWebApplication.Models;
+using System.Data;
+using System.Data.Entity;
 
 namespace OrderWebApplication.Repository
 {
@@ -58,6 +60,11 @@ namespace OrderWebApplication.Repository
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public DbContextTransaction BeginTransaction(IsolationLevel level)
+        {
+            return context.Database.BeginTransaction(level);
         }
 
         /// <summary>
