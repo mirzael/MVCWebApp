@@ -17,7 +17,7 @@ namespace OrderWebApplication.DependencyResolution {
                 HttpContextLifecycle.DisposeAndClearAll();
                 StructuremapMvc.StructureMapDependencyScope.DisposeNestedContainer(); 
             };
-  */
+*/
         }
 
         #endregion

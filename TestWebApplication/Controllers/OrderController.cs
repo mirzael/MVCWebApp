@@ -24,8 +24,18 @@ namespace OrderWebApplication.Controllers
             this.unitOfWork = unitOfWork;
         }
 
+
         /// <summary>
-        /// The page that shows all of the orders.
+        /// Shows all of the Orders.
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Index()
+        {
+            return View(unitOfWork.OrderRepository.Get().ToPagedList(1, UNITS_PER_PAGE));
+        }
+
+        /// <summary>
+        /// The partial page that shows all of the orders.
         /// </summary>
         /// <param name="ordererName">Name of the orderer.</param>
         /// <param name="itemId">The item identifier.</param>
@@ -35,11 +45,6 @@ namespace OrderWebApplication.Controllers
         /// <param name="page">The page.</param>
         /// <param name="currentSort">The current sort order.</param>
         /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View(unitOfWork.OrderRepository.Get().ToPagedList(1, UNITS_PER_PAGE));
-        }
-
         public PartialViewResult _orderDetails(string ordererName, int? itemId, string currentOrderer, int? currentItemId, string sortOrder, int? page, string currentSort)
         {
             //If there is a new filter, set the page back to one - the amount of pages may have changed

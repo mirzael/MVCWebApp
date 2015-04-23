@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderWebApplication.Repository
+namespace OrderWebApplication.Models
 {
     public class EntityWithId
     {

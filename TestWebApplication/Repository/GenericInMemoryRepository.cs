@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using OrderWebApplication.Models;
 
 namespace OrderWebApplication.Repository
 {
@@ -19,15 +20,15 @@ namespace OrderWebApplication.Repository
         /// <returns></returns>
         public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
-            List<TEntity> filtEntitys = entities;
+            IEnumerable<TEntity> filtEntitys = entities;
             if (filter != null)
             {
-                filtEntitys = filtEntitys.Where(filter.Compile()).ToList();
+                filtEntitys = filtEntitys.Where(filter.Compile());
             }
 
             if (orderBy != null)
             {
-                filtEntitys = orderBy(filtEntitys.AsQueryable()).ToList();
+                filtEntitys = orderBy(filtEntitys.AsQueryable());
             }
 
             return filtEntitys;
@@ -60,8 +61,10 @@ namespace OrderWebApplication.Repository
         {
             var TEntity = entities.Find(o => o.ID == id);
             var index = entities.IndexOf(TEntity);
-
-            entities.RemoveAt(index);
+            if (index != -1)
+            {
+                entities.RemoveAt(index);
+            }
         }
 
         /// <summary>
@@ -81,7 +84,10 @@ namespace OrderWebApplication.Repository
         {
             var TEntity = entities.Find(o => o.ID == entity.ID);
             var index = entities.IndexOf(TEntity);
-            entities[index] = entity;
+            if (index != -1)
+            {
+                entities[index] = entity;
+            }
         }
     }
 }
